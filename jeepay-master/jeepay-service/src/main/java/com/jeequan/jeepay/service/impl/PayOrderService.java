@@ -221,7 +221,7 @@ public class PayOrderService extends ServiceImpl<PayOrderMapper, PayOrder> {
         String dayStart = "";
         String dayEnd = "";
         for(int i = 0 ; i < 7 ; i++){
-            Date date = DateUtil.offsetDay(today, -i).toJdkDate();
+             Date date = DateUtil.offsetDay(today, -i).toJdkDate();
              dayStart = DateUtil.beginOfDay(date).toString(DatePattern.NORM_DATETIME_MINUTE_PATTERN);
              dayEnd = DateUtil.endOfDay(date).toString(DatePattern.NORM_DATETIME_MINUTE_PATTERN);
             // 每日交易金额查询
@@ -247,6 +247,17 @@ public class PayOrderService extends ServiceImpl<PayOrderMapper, PayOrder> {
         param.put("mchNo", mchNo);
         param.put("createTimeEnd", dayEnd);
         dayAmount = transferOrderMapper.transferPayCount(param);
+
+        dayStart = DateUtil.beginOfDay(DateUtil.offsetDay(today, -1).toJdkDate()).toString(DatePattern.NORM_DATETIME_MINUTE_PATTERN);
+        dayEnd = DateUtil.endOfDay(DateUtil.offsetDay(today, -1).toJdkDate()).toString(DatePattern.NORM_DATETIME_MINUTE_PATTERN);
+        Map param1 = new HashMap<>();
+        param1.put("state", TransferOrder.STATE_SUCCESS);
+        param1.put("createTimeStart", dayStart);
+        param1.put("mchNo", mchNo);
+        param1.put("createTimeEnd", dayEnd);
+        Map dayAmount1 = new LinkedHashMap();
+        dayAmount1 = transferOrderMapper.transferPayCount(param1);
+
         // 倒序排列
         Collections.reverse(array);
         json.put("dataArray", array);
@@ -256,6 +267,11 @@ public class PayOrderService extends ServiceImpl<PayOrderMapper, PayOrder> {
             json.put("todayTransOrderAmount", dayAmount.get("transferPayAmount"));
         }else{
             json.put("todayTransOrderAmount", "0.00");
+        }
+        if(!BeanUtil.isEmpty(dayAmount1)){
+            json.put("yesterdayTransOrderAmount", dayAmount1.get("transferPayAmount"));
+        }else{
+            json.put("yesterdayTransOrderAmount", "0.00");
         }
         json.put("payWeek", payWeek);
         json.put("yesterdayAmount", yesterdayAmount);

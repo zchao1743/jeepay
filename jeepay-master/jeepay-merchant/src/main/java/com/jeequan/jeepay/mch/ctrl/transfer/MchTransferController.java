@@ -154,7 +154,7 @@ public class MchTransferController extends CommonCtrl {
                 throw new BizException("商户积分("+mchIntegral+")不足！请向收款人账号:"+accountName+",收款人姓名："+companyName+"   充值！");
             }
             if( mchInfo.getIntegral()  <= 0  && model.getAmount()>1000 ){
-                throw new BizException("商户积分不足！转账金额不得超过10元！");
+                throw new BizException("商户积分不足！转账金额不得超过10元！请向收款人账号:"+accountName+",收款人姓名："+companyName+"   充值！");
             }
              //税率
             BigDecimal accountRate = sysConfigService.getDBApplicationConfig().getAccountRate();

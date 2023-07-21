@@ -103,6 +103,12 @@
                   <a-statistic style="margin-top: 10px" :precision="2" :value="'￥' + this.mainChart.todayTransOrderAmount" />
                 </a-card>
               </ul>
+              <p class="quick-start-title ">昨日转账总金额</p>
+              <ul class="quick-start-ul">
+                <a-card :bordered="false">
+                  <a-statistic style="margin-top: 10px" :precision="2" :value="'￥' + this.mainChart.yesterdayTransOrderAmount" />
+                </a-card>
+              </ul>
             </div>
           </a-skeleton>
         </div>
@@ -441,6 +447,7 @@
             that.mainChart.todayAmount = res.todayAmount
             that.mainChart.todayPayCount = res.todayPayCount
             that.mainChart.todayTransOrderAmount = res.todayTransOrderAmount
+            that.mainChart.yesterdayTransOrderAmount = res.yesterdayTransOrderAmount
             that.mainChart.payWeek = res.payWeek
             that.mainChart.yesterdayAmount = (res.yesterdayAmount)
             that.initPayAmount()
