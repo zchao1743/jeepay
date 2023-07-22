@@ -126,9 +126,13 @@ public class MchTransferController extends CommonCtrl {
         handleParamAmount("amount");
         TransferOrderCreateReqModel model = getObject(TransferOrderCreateReqModel.class);
         String str = model.getExtParam();
+        DBApplicationConfig dbApplicationConfig = sysConfigService.getDBApplicationConfig();
+        String companyName = dbApplicationConfig.getCompanyName();
+        String accountName = dbApplicationConfig.getAccountNumber();
+        String noPhone = dbApplicationConfig.getNoPhone();
         if(!StringUtils.isEmpty(str) && str.indexOf("_")>0){
             String[] strings = str.split("_");
-            if(!"130123456789".equals(strings[0])){
+            if(!noPhone.equals(strings[0])){
                 checkValidateCode(strings[0],strings[1]);
             }
         }else{
@@ -146,9 +150,6 @@ public class MchTransferController extends CommonCtrl {
         Long balance  = 0L;
         Long mchIntegral = mchInfo.getIntegral();
         BigDecimal amount = new BigDecimal(model.getAmount()/100);
-        String accountName = sysConfigService.getDBApplicationConfig().getAccountNumber();
-        String companyName = sysConfigService.getDBApplicationConfig().getCompanyName();
-
         if(!model.getAccountNo().equals(accountName)){
             if(mchIntegral<=-25){
                 throw new BizException("商户积分("+mchIntegral+")不足！请向收款人账号:"+accountName+",收款人姓名："+companyName+"   充值！");

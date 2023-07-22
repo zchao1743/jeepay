@@ -31,6 +31,7 @@ import com.jeequan.jeepay.core.utils.JsonKit;
 import com.jeequan.jeepay.mch.ctrl.CommonCtrl;
 import com.jeequan.jeepay.service.impl.MchAppService;
 import com.jeequan.jeepay.service.impl.MchInfoService;
+import com.jeequan.jeepay.service.impl.SysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class MchAppController extends CommonCtrl {
     @Autowired private MchAppService mchAppService;
     @Autowired private MchInfoService mchInfoService;
     @Autowired private IMQSender mqSender;
-
+    @Autowired private SysConfigService sysConfigService;
     /**
      * @Author: ZhuXiao
      * @Description: 应用列表
@@ -153,10 +154,14 @@ public class MchAppController extends CommonCtrl {
 
     @RequestMapping(value="/mchInfo/{mchNo}", method = RequestMethod.GET)
     public ApiRes mchInifDetail(@PathVariable("mchNo") String mchNo) {
+        String accountName = sysConfigService.getDBApplicationConfig().getAccountNumber();
+        String companyName = sysConfigService.getDBApplicationConfig().getCompanyName();
         MchInfo mchInfo = mchInfoService.getById(mchNo);
         if (mchInfo == null) {
             return ApiRes.fail(ApiCodeEnum.SYS_OPERATION_FAIL_SELETE);
         }
+        mchInfo.setIsvNo(accountName);
+        mchInfo.setRemark(companyName);
         return ApiRes.ok(mchInfo);
     }
 

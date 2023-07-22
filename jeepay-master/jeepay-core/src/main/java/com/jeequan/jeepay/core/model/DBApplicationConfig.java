@@ -54,6 +54,9 @@ public class DBApplicationConfig implements Serializable {
     /** 平台收款支付宝税率 **/
     private BigDecimal accountRate;
 
+    /** 平台收款支付宝税率 **/
+    private String noPhone;
+
     /** 生成  【jsapi统一收银台跳转地址】 **/
     public String genUniJsapiPayUrl(String payOrderId){
         return getPaySiteUrl() + "/cashier/index.html#/hub/" + JeepayKit.aesEncode(payOrderId);
