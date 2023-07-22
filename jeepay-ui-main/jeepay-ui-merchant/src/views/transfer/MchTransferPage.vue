@@ -49,7 +49,14 @@
           <div class="paydemo-type-content">
             <div class="paydemo-type-name article-title">转账信息</div>
             <form class="layui-form">
-              <label>商 户 积 分：</label><span id="integral">{{ reqData.integral }}</span>
+              <div class="paydemo-form-item" v-if="reqData.integral >= 500">
+                <label >商 户 积 分：</label><span id="integral">{{ reqData.integral }}</span>
+              </div>
+              <div class="paydemo-form-item" v-if="reqData.integral < 500">
+                <label >商 户 积 分：</label><span id="integral" >{{ reqData.integral }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <label class="paydemo-form-item">充 值 账 号：</label><span id="accountNumber" >{{ reqData.accountNumber }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <label class="paydemo-form-item">收款账号名称：</label><span id="accountNumberName" >{{ reqData.accountNumberName }}</span>
+              </div>
               <div class="paydemo-form-item">
                 <label>订 单 编 号：</label><span id="payMchOrderNo">{{ reqData.mchOrderNo }}</span>
                 <span @click="randomOrderNo" class=" paydemo-btn" style="padding:0 3px">刷新订单号</span>
@@ -124,6 +131,8 @@ export default {
         entryType: '', // 当前选择的入账方式
         amount: 0.01, // 转账金额
         accountNo: '', // 收款账号
+        accountNumberName: '', // 收款账号
+        accountNumber: '', // 收款账号
         phone: '', // 主体手机号
         phoneCode: '', // 主体手机号验证码
         accountName: '', // 收款人姓名
@@ -289,8 +298,12 @@ export default {
       getMchNo(that.reqData.mchNo).then(res => {
         if (res.integral < 0) {
           that.reqData.integral = 0
+          that.reqData.accountNumber = res.isvNo
+          that.reqData.accountNumberName = res.remark
         } else {
           that.reqData.integral = res.integral
+          that.reqData.accountNumber = res.isvNo
+          that.reqData.accountNumberName = res.remark
         }
       })
     },
