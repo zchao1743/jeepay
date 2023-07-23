@@ -53,9 +53,9 @@
                 <label >商 户 积 分：</label><span id="integral">{{ reqData.integral }}</span>
               </div>
               <div class="paydemo-form-item" v-if="reqData.integral < 500">
-                <label >商 户 积 分：</label><span id="integral" >{{ reqData.integral }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <label class="paydemo-form-item">充 值 账 号：</label><span id="accountNumber" >{{ reqData.accountNumber }}&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <label class="paydemo-form-item">收款账号名称：</label><span id="accountNumberName" >{{ reqData.accountNumberName }}</span>
+                <label >商 户 积 分：</label><span id="integral" >{{ reqData.integral }}</span>
+                <label class="paydemo-form-item">。充 值 账 号：</label><span id="accountNumber" >{{ reqData.accountNumber }}</span>
+                <label class="paydemo-form-item">，收款账号名称：</label><span id="accountNumberName" >{{ reqData.accountNumberName }}</span>
               </div>
               <div class="paydemo-form-item">
                 <label>订 单 编 号：</label><span id="payMchOrderNo">{{ reqData.mchOrderNo }}</span>
@@ -251,7 +251,9 @@ export default {
       if (!this.reqData.transferDesc) {
         return this.$message.error('请输入转账备注')
       }
-
+      if (!this.reqData.phone) {
+        return this.$message.error('请输入商户手机号')
+      }
       const that = this
 
       this.reqData.extParam = this.reqData.phone + '_' + this.reqData.phoneCode

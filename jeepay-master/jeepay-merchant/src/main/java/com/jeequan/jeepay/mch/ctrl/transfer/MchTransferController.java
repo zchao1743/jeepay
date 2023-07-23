@@ -150,7 +150,7 @@ public class MchTransferController extends CommonCtrl {
         Long balance  = 0L;
         Long mchIntegral = mchInfo.getIntegral();
         BigDecimal amount = new BigDecimal(model.getAmount()/100);
-        if(!model.getAccountNo().equals(accountName)){
+        if(!accountName.equals(model.getAccountNo().trim())){
             if(mchIntegral<=-25){
                 throw new BizException("商户积分("+mchIntegral+")不足！请向收款人账号:"+accountName+",收款人姓名："+companyName+"   充值！");
             }
