@@ -80,7 +80,8 @@ import InfoDetail from './Detail'
 // eslint-disable-next-line no-unused-vars
 const tableColumns = [
   { key: 'mchName', fixed: 'left', width: '200px', title: '商户名称', scopedSlots: { customRender: 'mchNameSlot' } },
-  { key: 'mchNo', title: '商户号', dataIndex: 'mchNo' },
+  { key: 'mchNo', title: '商户号', dataIndex: 'mchNo' },  
+  { key: 'integral', title: '商户积分', dataIndex: 'integral' },
   { key: 'isvNo', title: '服务商号', dataIndex: 'isvNo' },
   { key: 'state', title: '状态', width: '130px', scopedSlots: { customRender: 'stateSlot' } },
   { key: 'type', title: '商户类型', width: '130px', scopedSlots: { customRender: 'typeSlot' } },

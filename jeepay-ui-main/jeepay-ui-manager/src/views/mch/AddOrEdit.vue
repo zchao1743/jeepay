@@ -50,10 +50,10 @@
       </a-row>
       <a-row justify="space-between" type="flex">
         <a-col :span="10">
-          <a-form-model-item label="联系人邮箱" prop="contactEmail">
+          <a-form-model-item label="商户积分" prop="integral">
             <a-input
-              placeholder="请输入联系人邮箱"
-              v-model="saveObject.contactEmail"
+              placeholder=""
+              v-model="saveObject.integral"
             >
             </a-input>
           </a-form-model-item>

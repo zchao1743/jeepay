@@ -81,8 +81,8 @@
       </a-col>
       <a-col :sm="12">
         <a-descriptions>
-          <a-descriptions-item label="联系人邮箱">
-            {{ detailData.contactEmail }}
+          <a-descriptions-item label="商户积分">
+            {{ detailData.integral }}
           </a-descriptions-item>
         </a-descriptions>
       </a-col>

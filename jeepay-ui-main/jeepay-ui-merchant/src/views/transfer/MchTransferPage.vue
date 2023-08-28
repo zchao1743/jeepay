@@ -114,7 +114,7 @@
 <script>
 import { API_URL_MCH_APP, req, queryMchTransferIfCode, doTransfer, getMchNo, getCodeApi, queryBalance } from '@/api/manage' // 接口
 import ChannelUserModal from '@/components/ChannelUser/ChannelUserModal'
-const TIME_COUNT = 60
+const TIME_COUNT = 30
 export default {
   components: { ChannelUserModal },
   data () {
